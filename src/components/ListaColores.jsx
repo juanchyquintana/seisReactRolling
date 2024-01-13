@@ -1,7 +1,7 @@
 import { ListGroup } from "react-bootstrap";
 import ItemColor from "./ItemColor";
 
-const ListaColores = ({ colores, eliminarColor }) => {
+const ListaColores = ({ colores, eliminarColor}) => {
   return (
     <ListGroup>
       {colores.map((color, posicionColor) => (

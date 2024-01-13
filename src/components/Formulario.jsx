@@ -1,32 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Form, Button } from "react-bootstrap";
 import ListaColores from "./ListaColores";
 import Error from "./Error";
-import { Form, Button } from "react-bootstrap";
 
 const Formulario = () => {
+const colorLS = JSON.parse(localStorage.getItem('colorTarea')) || [];
+  const [colores, setColores] = useState(colorLS);
   const [nombreColor, setNombreColor] = useState("");
   const [color, setColor] = useState("");
-  const [colores, setColores] = useState([])
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('colorTarea', JSON.stringify(colores))
+  }, [colores])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if([nombreColor, color].includes("")) {
-        setError(true);
-        return
+    if ([nombreColor, color].includes("")) {
+      setError(true);
+      return;
     }
-    setError(false)
+    setError(false);
 
     setColores([...colores, color]);
 
+    setNombreColor("")
     setColor("");
   };
 
   const eliminarColor = (nombreColor) => {
-    const colorActualizado = colores.filter((color) => color !== nombreColor)
-    setColores(colorActualizado)
-  }
+    const colorActualizado = colores.filter((color) => color !== nombreColor);
+    setColores(colorActualizado);
+  };
 
   return (
     <>
@@ -65,8 +70,8 @@ const Formulario = () => {
         </Form>
 
         <ListaColores 
-            colores={colores}
-            eliminarColor={eliminarColor}
+            colores={colores} 
+            eliminarColor={eliminarColor} 
         />
       </section>
     </>

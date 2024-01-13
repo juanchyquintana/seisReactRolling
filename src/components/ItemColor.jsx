@@ -5,7 +5,7 @@ const ItemColor = ({color, eliminarColor}) => {
     <ListGroupItem className='d-flex justify-content-between'>
         <div style={{
             backgroundColor: color
-        }} className='w-25'>
+        }} className='w-25 border border-black '>
         </div>
         {color}
         
