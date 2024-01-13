@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ListaColores from "./ListaColores";
 import Error from "./Error";
+import { Form, Button } from "react-bootstrap";
 
 const Formulario = () => {
   const [nombreColor, setNombreColor] = useState("");
@@ -17,10 +18,15 @@ const Formulario = () => {
     }
     setError(false)
 
-    // setColores([...colores, color]);
+    setColores([...colores, color]);
 
-    // setColor("");
+    setColor("");
   };
+
+  const eliminarColor = (nombreColor) => {
+    const colorActualizado = colores.filter((color) => color !== nombreColor)
+    setColores(colorActualizado)
+  }
 
   return (
     <>
@@ -31,7 +37,7 @@ const Formulario = () => {
 
         {error && <Error>¡Introduce el nombre del color, por favor!</Error>}
 
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <div className="form-control d-flex align-items-center gap-2">
             <input
               type="color"
@@ -52,14 +58,15 @@ const Formulario = () => {
           </div>
 
           <div className="d-flex justify-content-center">
-            <button type="submit" className="btn btn-outline-danger  my-2 w-50">
+            <Button type="submit" className="my-2 w-50">
               Guardar Color
-            </button>
+            </Button>
           </div>
-        </form>
+        </Form>
 
         <ListaColores 
             colores={colores}
+            eliminarColor={eliminarColor}
         />
       </section>
     </>
